@@ -30,7 +30,7 @@ namespace SoySauceSDK
                 if (_settings != null) return _settings;
                 _settings = Resources.Load<SoySauceSettings>(SoySauceGlobals.SoySauceSettingsAssetName);
                 if (_settings != null) return _settings;
-                Debug.Log("Create a default SoySauceSettings under Resources folder.");
+                Debug.LogWarning("Create a default SoySauceSettings under Resources folder.");
                 _settings = ScriptableObject.CreateInstance<SoySauceSettings>();
                 _settings.ResetSettings();
 
@@ -167,6 +167,7 @@ namespace SoySauceSDK
             // 2) gamesBetweenAds: only show an ad if "gamesBetweenAds" amount of games was played since the previous ad 
 		
             //AdManager.SetAdDisplayConditions(secondsBetweenAds, gamesBetweenAds);
+            Debug.LogWarning("SoySauceSettings is overriden.");
             Settings.AdsServiceSettings.SecondsBetweenAds = secondsBetweenAds;
             Settings.AdsServiceSettings.GamesBetweenAds = gamesBetweenAds;
         }
