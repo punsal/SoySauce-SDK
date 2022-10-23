@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
 
-namespace SoySauceSDK.Services.Ads
+namespace SoySauceSDK.Runtime.Services.Ads
 {
     [Serializable]
     public class AdsServiceSettings
     {
         [SerializeField] private string adId = "";
-        [SerializeField] private int secondsBetweenAds = 0;
-        [SerializeField] private int gamesBetweenAds = 0;
+        [SerializeField] private int secondsBetweenAds;
+        [SerializeField] private int gamesBetweenAds;
 
         public string AdId => adId;
 

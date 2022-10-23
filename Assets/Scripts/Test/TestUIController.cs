@@ -1,8 +1,6 @@
-using System;
-using SoySauceSDK;
+using SoySauceSDK.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
-
 
 namespace Test
 {
@@ -12,14 +10,14 @@ namespace Test
 
         public Button startGameButton;
 
-        public Button endGameButton; 
+        public Button endGameButton;
 
         private void Awake()
         {
             showAdButton.onClick.AddListener(ShowAdClick);
             startGameButton.onClick.AddListener(StartGameClick);
             endGameButton.onClick.AddListener(EndGameClick);
-            
+
             SoySauce.SetAdDisplayConditions(60, 3);
             // Init SDK initially.
             SoySauce.Init();
@@ -27,17 +25,17 @@ namespace Test
 
         private void ShowAdClick()
         {
-            SoySauce.ShowAd(); 
+            SoySauce.ShowAd();
         }
 
         private void StartGameClick()
         {
-            SoySauce.StartGame(); 
+            SoySauce.StartGame();
         }
 
         private void EndGameClick()
         {
-            SoySauce.EndGame(); 
+            SoySauce.EndGame();
         }
     }
 }

@@ -1,29 +1,27 @@
 using System;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace _3rdParty
+namespace _3rdParty.Runtime
 {
     public static class TopAds
     {
+        private static bool? isConsent;
+        private static bool isInitialized;
+        private static bool isAdLoaded;
+
+        private static readonly string recognizedAdUnitId = "f4280fh0318rf0h2";
         public static event Action OnAdLoadedEvent;
         public static event Action OnAdFailedEvent;
         public static event Action OnAdShownEvent;
 
-        private static bool? isConsent; 
-        private static bool isInitialized;
-        private static bool isAdLoaded;
-
-        private static string recognizedAdUnitId = "f4280fh0318rf0h2"; 
-        
         public static void GrantConsent()
         {
-            isConsent = true; 
+            isConsent = true;
         }
 
         public static void RevokeConsent()
         {
-            isConsent = false; 
+            isConsent = false;
         }
 
         public static void InitializeSDK()
@@ -31,27 +29,16 @@ namespace _3rdParty
             isInitialized = true;
 
             if (TopAdsBehaviour._instance == null)
-            {
-                throw new Exception("You must include TopAdsBehaviour in your scene"); 
-            }
+                throw new Exception("You must include TopAdsBehaviour in your scene");
         }
 
         public static void RequestAd(string adUnitId)
         {
-            if (!isConsent.HasValue)
-            {
-                throw new Exception("TopAds - No user consent set!"); 
-            }
+            if (!isConsent.HasValue) throw new Exception("TopAds - No user consent set!");
 
-            if (!adUnitId.Equals(recognizedAdUnitId))
-            {
-                throw new Exception("TopAds - Unrecognized ad unit"); 
-            }
+            if (!adUnitId.Equals(recognizedAdUnitId)) throw new Exception("TopAds - Unrecognized ad unit");
 
-            if (isInitialized)
-            {
-                TopAdsBehaviour.InvokeAfter(AdLoaded, Random.Range(0, 10)); 
-            }
+            if (isInitialized) TopAdsBehaviour.InvokeAfter(AdLoaded, Random.Range(0, 10));
         }
 
         private static void AdLoaded()
@@ -59,27 +46,24 @@ namespace _3rdParty
             if (Random.Range(0, 10) > 2)
             {
                 isAdLoaded = true;
-                OnAdLoadedEvent?.Invoke();    
+                OnAdLoadedEvent?.Invoke();
             }
             else
             {
                 isAdLoaded = false;
-                OnAdFailedEvent?.Invoke(); 
+                OnAdFailedEvent?.Invoke();
             }
         }
 
         public static void ShowAd(string adUnitId)
         {
-            if (!adUnitId.Equals(recognizedAdUnitId))
-            {
-                throw new Exception("TopAds - Unrecognized ad unit"); 
-            }
+            if (!adUnitId.Equals(recognizedAdUnitId)) throw new Exception("TopAds - Unrecognized ad unit");
 
             if (isInitialized && isAdLoaded)
             {
                 TopAdsBehaviour._instance.ShowAd();
-                OnAdShownEvent?.Invoke(); 
-                isAdLoaded = false; 
+                OnAdShownEvent?.Invoke();
+                isAdLoaded = false;
             }
         }
     }

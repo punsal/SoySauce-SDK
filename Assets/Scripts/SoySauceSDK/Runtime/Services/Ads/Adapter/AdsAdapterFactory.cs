@@ -1,6 +1,6 @@
-using SoySauceSDK.Services.Ads.Adapter.Interface;
+using SoySauceSDK.Runtime.Services.Ads.Adapter.Interface;
 
-namespace SoySauceSDK.Services.Ads.Adapter
+namespace SoySauceSDK.Runtime.Services.Ads.Adapter
 {
     public static class AdsAdapterFactory
     {
@@ -8,10 +8,7 @@ namespace SoySauceSDK.Services.Ads.Adapter
         {
             IAdsAdapter adapter = new TopAdsAdapter();
             var didCreated = adapter.Create();
-            if (didCreated)
-            {
-                return adapter;
-            }
+            if (didCreated) return adapter;
 
             adapter = new NullObjectAdsAdapter();
             adapter.Create();

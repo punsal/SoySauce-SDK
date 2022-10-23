@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
 
-namespace SoySauceSDK
+namespace SoySauceSDK.Runtime
 {
     /// <summary>
-    /// PlayerPref based database for simple implementation. Singleton
+    ///     PlayerPref based database for simple implementation. Singleton
     /// </summary>
     public class SoySauceDatabase
     {
-        private static readonly Lazy<SoySauceDatabase> LazyInstance = new Lazy<SoySauceDatabase>(CreateInstance);
+        private static readonly Lazy<SoySauceDatabase> LazyInstance = new(CreateInstance);
 
         public static SoySauceDatabase Instance => LazyInstance.Value;
 

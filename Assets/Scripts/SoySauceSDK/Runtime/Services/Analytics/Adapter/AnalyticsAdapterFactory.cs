@@ -1,6 +1,6 @@
-using SoySauceSDK.Services.Analytics.Adapter.Interface;
+using SoySauceSDK.Runtime.Services.Analytics.Adapter.Interface;
 
-namespace SoySauceSDK.Services.Analytics.Adapter
+namespace SoySauceSDK.Runtime.Services.Analytics.Adapter
 {
     public static class AnalyticsAdapterFactory
     {

@@ -1,8 +1,8 @@
-﻿using SoySauceSDK;
+﻿using SoySauceSDK.Runtime;
 using UnityEngine;
 
 /// <summary>
-/// This was already implemented. I used it.
+///     This was already implemented. I used it.
 /// </summary>
 public class MainScript : MonoBehaviour
 {

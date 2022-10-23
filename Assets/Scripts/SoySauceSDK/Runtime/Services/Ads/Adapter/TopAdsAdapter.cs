@@ -1,16 +1,15 @@
 using System;
-using _3rdParty;
-using SoySauceSDK.Services.Ads.Adapter.Interface;
+using _3rdParty.Runtime;
+using SoySauceSDK.Runtime.Services.Ads.Adapter.Interface;
 using UnityEngine;
 
-namespace SoySauceSDK.Services.Ads.Adapter
+namespace SoySauceSDK.Runtime.Services.Ads.Adapter
 {
     public class TopAdsAdapter : IAdsAdapter
     {
-        public Action OnAdShown { get; set; }
-
         private string _adId;
         private bool _isAdReady;
+        public Action OnAdShown { get; set; }
 
         public bool Create()
         {
@@ -26,27 +25,23 @@ namespace SoySauceSDK.Services.Ads.Adapter
 
             return true;
         }
-        
+
         public bool Init(bool consent, string adId)
         {
             _adId = adId;
             _isAdReady = false;
 
             if (consent)
-            {
                 TopAds.GrantConsent();
-            }
             else
-            {
                 TopAds.RevokeConsent();
-            }
 
             TopAds.OnAdLoadedEvent += AdLoaded;
             TopAds.OnAdFailedEvent += AdFailed;
             TopAds.OnAdShownEvent += AdShown;
-            
+
             TopAds.RequestAd(adId);
-            
+
             return true;
         }
 
@@ -74,7 +69,7 @@ namespace SoySauceSDK.Services.Ads.Adapter
         private void AdShown()
         {
             OnAdShown?.Invoke();
-            
+
             _isAdReady = false;
             TopAds.RequestAd(_adId);
         }

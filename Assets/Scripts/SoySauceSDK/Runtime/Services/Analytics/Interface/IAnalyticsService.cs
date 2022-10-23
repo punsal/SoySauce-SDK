@@ -1,6 +1,6 @@
-using SoySauceSDK.Services.Interface;
+using SoySauceSDK.Runtime.Services.Interface;
 
-namespace SoySauceSDK.Services.Analytics.Interface
+namespace SoySauceSDK.Runtime.Services.Analytics.Interface
 {
     public interface IAnalyticsService : IService
     {

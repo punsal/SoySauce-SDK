@@ -1,7 +1,7 @@
 using System;
-using SoySauceSDK.Services.Interface;
+using SoySauceSDK.Runtime.Services.Interface;
 
-namespace SoySauceSDK.Services.Ads.Interface
+namespace SoySauceSDK.Runtime.Services.Ads.Interface
 {
     public interface IAdsService : IService
     {

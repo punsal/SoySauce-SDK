@@ -1,6 +1,6 @@
 using System;
 
-namespace SoySauceSDK.Services.Interface
+namespace SoySauceSDK.Runtime.Services.Interface
 {
     public interface IService
     {

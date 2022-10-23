@@ -1,16 +1,16 @@
 {
-    "name": "com.soy.sdk",
-    "rootNamespace": "",
-    "references": [
-        "GUID:65ed54512922cba43a0897506061c0bf"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "com.soy.sdk",
+  "rootNamespace": "",
+  "references": [
+    "GUID:65ed54512922cba43a0897506061c0bf"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

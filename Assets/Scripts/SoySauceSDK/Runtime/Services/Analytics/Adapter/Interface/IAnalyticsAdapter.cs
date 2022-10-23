@@ -1,4 +1,4 @@
-namespace SoySauceSDK.Services.Analytics.Adapter.Interface
+namespace SoySauceSDK.Runtime.Services.Analytics.Adapter.Interface
 {
     public interface IAnalyticsAdapter
     {

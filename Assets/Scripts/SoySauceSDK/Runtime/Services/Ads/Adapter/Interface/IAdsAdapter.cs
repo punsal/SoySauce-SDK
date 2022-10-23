@@ -1,6 +1,6 @@
 using System;
 
-namespace SoySauceSDK.Services.Ads.Adapter.Interface
+namespace SoySauceSDK.Runtime.Services.Ads.Adapter.Interface
 {
     public interface IAdsAdapter
     {

@@ -1,45 +1,16 @@
 ﻿using System;
-using SoySauceSDK.Services.Ads;
-using SoySauceSDK.Services.Ads.Interface;
-using SoySauceSDK.Services.Analytics;
-using SoySauceSDK.Services.Analytics.Interface;
-using SoySauceSDK.Services.GDPR;
-using SoySauceSDK.Services.GDPR.Interface;
+using SoySauceSDK.Runtime.Services.Ads;
+using SoySauceSDK.Runtime.Services.Ads.Interface;
+using SoySauceSDK.Runtime.Services.Analytics;
+using SoySauceSDK.Runtime.Services.Analytics.Interface;
+using SoySauceSDK.Runtime.Services.GDPR;
+using SoySauceSDK.Runtime.Services.GDPR.Interface;
 using UnityEngine;
 
-namespace SoySauceSDK
+namespace SoySauceSDK.Runtime
 {
-    public static class SoySauce{
-
-        #region Adapters
-
-        private static IConsentService _consentService;
-        private static IAnalyticsService _analyticsService;
-        private static IAdsService _adsService;
-
-        #endregion
-
-        #region Settings
-
-        private static SoySauceSettings _settings;
-
-        private static SoySauceSettings Settings
-        {
-            get
-            {
-                if (_settings != null) return _settings;
-                _settings = Resources.Load<SoySauceSettings>(SoySauceGlobals.SoySauceSettingsAssetName);
-                if (_settings != null) return _settings;
-                Debug.LogWarning("Create a default SoySauceSettings under Resources folder.");
-                _settings = ScriptableObject.CreateInstance<SoySauceSettings>();
-                _settings.ResetSettings();
-
-                return _settings;
-            }
-        }
-
-        #endregion
-	
+    public static class SoySauce
+    {
         // Before calling methods in TopAds and TopAnalytics you must call their init methods 
         // TopAds requires the TopAds prefab to be created in the scene
         // You also need to collect user GDPR consent and pass that boolean value to TopAds and TopAnalytics 
@@ -57,15 +28,12 @@ namespace SoySauceSDK
                 case ConsentStatus.NotDetermined:
                     var prefab = Resources.Load<GameObject>(SoySauceGlobals.SoySauceConsentPrefabName);
                     if (prefab != null)
-                    {
                         // ReSharper disable once AccessToStaticMemberViaDerivedType
                         GameObject.Instantiate(prefab);
-                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-           
         }
 
         public static void SetConsent(bool consent)
@@ -82,15 +50,13 @@ namespace SoySauceSDK
             {
                 if (!success) return;
                 Debug.Log("GdprAdapter init is successful.");
-         			
             });
-            
+
             _analyticsService = new TopAnalyticsService(_consentService);
             _analyticsService.Init(consent, success =>
             {
                 if (!success) return;
                 Debug.Log("AnalyticsAdapter init is successful.");
-				
             });
 
             _adsService = new AdsService(Settings.AdsServiceSettings);
@@ -110,7 +76,7 @@ namespace SoySauceSDK
             var consentValue = SoySauceDatabase.Instance.Read(SoySauceGlobals.SoySauceConsentKey);
             return Enum.TryParse<ConsentStatus>(consentValue, out var status) ? status : ConsentStatus.NotDetermined;
         }
-        
+
         public static void StartGame()
         {
             // Track in TopAnalytics that a game has started 
@@ -125,14 +91,14 @@ namespace SoySauceSDK
             _adsService.IncrementGamesCounter();
             _analyticsService.TrackEvent(Events.GameEnded);
         }
-	
+
         public static void ShowAd()
         {
             // TopAds methods must be called with a unique "string" ad unit id 
             // For your test app that id is "f4280fh0318rf0h2" 
             // However, when releasing the SDK to other studios, their ad unit id will be different 
             // Please find a flexible way to allow studios to provide their ad unit id to your SoySauce SDK 
-            
+
             /*
              * TODO: PRESENT SOLUTION: Creating a SDKSettings and put info in it. An Editor-based solution would be great.
              */
@@ -165,13 +131,13 @@ namespace SoySauceSDK
             // Unless EITHER condition provided is true: 
             // 1) secondsBetweenAds: only show an ad if the previous ad was shown more than "secondBetweenAds" ago 
             // 2) gamesBetweenAds: only show an ad if "gamesBetweenAds" amount of games was played since the previous ad 
-		
+
             //AdManager.SetAdDisplayConditions(secondsBetweenAds, gamesBetweenAds);
             Debug.LogWarning("SoySauceSettings is overriden.");
             Settings.AdsServiceSettings.SecondsBetweenAds = secondsBetweenAds;
             Settings.AdsServiceSettings.GamesBetweenAds = gamesBetweenAds;
         }
-        
+
         private static void DisplayToast()
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -185,5 +151,34 @@ namespace SoySauceSDK
             toastObject.Call ("show");
 #endif
         }
+
+        #region Adapters
+
+        private static IConsentService _consentService;
+        private static IAnalyticsService _analyticsService;
+        private static IAdsService _adsService;
+
+        #endregion
+
+        #region Settings
+
+        private static SoySauceSettings _settings;
+
+        private static SoySauceSettings Settings
+        {
+            get
+            {
+                if (_settings != null) return _settings;
+                _settings = Resources.Load<SoySauceSettings>(SoySauceGlobals.SoySauceSettingsAssetName);
+                if (_settings != null) return _settings;
+                Debug.LogWarning("Create a default SoySauceSettings under Resources folder.");
+                _settings = ScriptableObject.CreateInstance<SoySauceSettings>();
+                _settings.ResetSettings();
+
+                return _settings;
+            }
+        }
+
+        #endregion
     }
 }

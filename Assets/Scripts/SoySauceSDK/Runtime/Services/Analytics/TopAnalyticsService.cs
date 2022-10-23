@@ -1,22 +1,22 @@
 using System;
-using SoySauceSDK.Services.Analytics.Adapter;
-using SoySauceSDK.Services.Analytics.Adapter.Interface;
-using SoySauceSDK.Services.Analytics.Interface;
-using SoySauceSDK.Services.GDPR.Interface;
+using SoySauceSDK.Runtime.Services.Analytics.Adapter;
+using SoySauceSDK.Runtime.Services.Analytics.Adapter.Interface;
+using SoySauceSDK.Runtime.Services.Analytics.Interface;
+using SoySauceSDK.Runtime.Services.GDPR.Interface;
 
-namespace SoySauceSDK.Services.Analytics
+namespace SoySauceSDK.Runtime.Services.Analytics
 {
     public class TopAnalyticsService : IAnalyticsService
     {
-        private IConsentService _consentService;
         private readonly IAnalyticsAdapter _adapter;
+        private readonly IConsentService _consentService;
 
         public TopAnalyticsService(IConsentService consentService)
         {
             _consentService = consentService;
             _adapter = AnalyticsAdapterFactory.Create();
         }
-        
+
         public void Init(bool consent, Action<bool> onComplete)
         {
             _adapter.Init(consent);
@@ -25,10 +25,7 @@ namespace SoySauceSDK.Services.Analytics
 
         public void TrackEvent(string eventName)
         {
-            if (_consentService.IsConsentGiven)
-            {
-                _adapter.TrackEvent(eventName);
-            }
+            if (_consentService.IsConsentGiven) _adapter.TrackEvent(eventName);
         }
     }
 }

@@ -1,11 +1,11 @@
 using System;
-using SoySauceSDK.Services.GDPR.Interface;
+using SoySauceSDK.Runtime.Services.GDPR.Interface;
 
-namespace SoySauceSDK.Services.GDPR
+namespace SoySauceSDK.Runtime.Services.GDPR
 {
     public class GdprService : IConsentService
     {
-        public bool IsConsentGiven { get; private set; } = false;
+        public bool IsConsentGiven { get; private set; }
 
         public void Init(bool consent, Action<bool> onComplete)
         {

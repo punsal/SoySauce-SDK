@@ -3,27 +3,28 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _3rdParty
+namespace _3rdParty.Runtime
 {
     public class TopAdsBehaviour : MonoBehaviour
     {
         public static TopAdsBehaviour _instance;
 
         public GameObject ad;
-        public Button closeAdButton; 
-        
+        public Button closeAdButton;
+
 
         private void Awake()
         {
             _instance = this;
 
-            closeAdButton.onClick.AddListener(CloseAdClick); 
+            closeAdButton.onClick.AddListener(CloseAdClick);
         }
 
         public static void InvokeAfter(Action methodToCall, float duration)
         {
             _instance.StartCoroutine(_instance.InvokeAfterCoroutine(methodToCall, duration));
         }
+
         private IEnumerator InvokeAfterCoroutine(Action methodToCall, float duration)
         {
             yield return new WaitForSeconds(duration);
@@ -37,8 +38,7 @@ namespace _3rdParty
 
         private void CloseAdClick()
         {
-            ad.SetActive(false); 
+            ad.SetActive(false);
         }
-
     }
 }

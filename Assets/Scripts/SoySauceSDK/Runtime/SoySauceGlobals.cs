@@ -1,7 +1,7 @@
-namespace SoySauceSDK
+namespace SoySauceSDK.Runtime
 {
     /// <summary>
-    /// Keep track of global variables in SDK.
+    ///     Keep track of global variables in SDK.
     /// </summary>
     public static class SoySauceGlobals
     {

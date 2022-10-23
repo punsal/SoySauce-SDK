@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
-using SoySauceSDK.Services.Ads.Adapter.Interface;
+using SoySauceSDK.Runtime.Services.Ads.Adapter.Interface;
 using UnityEngine;
 
-namespace SoySauceSDK.Services.Ads.Adapter
+namespace SoySauceSDK.Runtime.Services.Ads.Adapter
 {
     public class AdsAdapterErrorHandler : MonoBehaviour
     {
@@ -12,10 +12,7 @@ namespace SoySauceSDK.Services.Ads.Adapter
         public void Resolve()
         {
             var adsPrefab = Resources.Load<GameObject>(SoySauceGlobals.SoySauceAdsPrefabName);
-            if (adsPrefab != null)
-            {
-                StartCoroutine(InternalResolve(adsPrefab));
-            }
+            if (adsPrefab != null) StartCoroutine(InternalResolve(adsPrefab));
         }
 
         private IEnumerator InternalResolve(GameObject prefab)
@@ -25,7 +22,7 @@ namespace SoySauceSDK.Services.Ads.Adapter
             Instantiate(prefab);
 
             yield return new WaitForEndOfFrame();
-            
+
             OnAdapterErrorSolved?.Invoke(AdsAdapterFactory.Create());
             Destroy(gameObject);
         }
